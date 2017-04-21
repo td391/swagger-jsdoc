@@ -9,6 +9,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes');
 var routes2 = require('./routes2');
 var swaggerJSDoc = require('../');
+var fs = require('fs');
+var path = require('path');
+
 
 // Initialize express
 var app = express();
@@ -43,6 +46,7 @@ var swaggerSpec = swaggerJSDoc(options);
 
 // Serve swagger docs the way you like (Recommendation: swagger-tools)
 app.get('/api-docs.json', function(req, res) {
+  fs.writeFileSync(path.resolve('example','voir.json'), JSON.stringify(swaggerSpec), 'utf8');
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
